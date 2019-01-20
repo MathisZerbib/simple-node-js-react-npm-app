@@ -35,6 +35,14 @@ app.post( '/quotes',(req, res) => {
       })
     })
 
+    app.get('/', (req, res) => {
+      var cursor = db.collection('quotes').find()
+    })
+    db.collection('quotes').find().toArray(function(err, results) {
+      console.log(results)
+      // send HTML file populated with quotes here
+    })
+
 // //PUT
 // .put(function(req,res){ 
 //       res.json({message : "Mise à jour des informations d'une piscine dans la liste", methode : req.method});
