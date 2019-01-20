@@ -1,4 +1,6 @@
-var express = require('express'); 
+const express = require('express')
+const bodyParser= require('body-parser')
+const app = express()
 // Nous définissons ici les paramètres du serveur.
 var hostname = 'localhost'; 
 var port = 4444; 
