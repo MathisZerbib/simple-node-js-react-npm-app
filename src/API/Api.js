@@ -35,20 +35,20 @@ app.post( '/quotes',(req, res) => {
       })
     })
 
-//PUT
-.put(function(req,res){ 
-      res.json({message : "Mise à jour des informations d'une piscine dans la liste", methode : req.method});
-})
-//DELETE
-.delete(function(req,res){ 
-res.json({message : "Suppression d'une piscine dans la liste", methode : req.method});  
-}); 
+// //PUT
+// .put(function(req,res){ 
+//       res.json({message : "Mise à jour des informations d'une piscine dans la liste", methode : req.method});
+// })
+// //DELETE
+// .delete(function(req,res){ 
+// res.json({message : "Suppression d'une piscine dans la liste", methode : req.method});  
+// }); 
  
-myRouter.route('/')
-// all permet de prendre en charge toutes les méthodes. 
-.all(function(req,res){ 
-      res.json({message : "Bienvenue sur notre Frugal API ", methode : req.method});
-});
+// myRouter.route('/')
+// // all permet de prendre en charge toutes les méthodes. 
+// .all(function(req,res){ 
+//       res.json({message : "Bienvenue sur notre Frugal API ", methode : req.method});
+// });
 
 // J'implémente les méthodes GET, PUT, UPDATE et DELETE
 // GET
