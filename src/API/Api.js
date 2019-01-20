@@ -36,7 +36,7 @@ myRouter.route('/dashboard')
  
 })
 //POST
-   app.post('/dashboard', (req, res) => {
+   app.post('/bar', (req, res) => {
       db.collection('event').save(req.body, (err, result) => {
         if (err) return console.log(err)
     
