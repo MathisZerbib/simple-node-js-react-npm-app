@@ -1,13 +1,25 @@
 const express = require('express')
 const bodyParser= require('body-parser')
 const app = express()
+const MongoClient = require('mongodb').MongoClient
+
 // Nous définissons ici les paramètres du serveur.
-var hostname = 'localhost'; 
+var hostname = 'mongodb://matzer:420!Nice@ds131914.mlab.com:31914/get-out'; 
 var port = 4444; 
- 
-app.use(bodyParser.urlencoded({ extended: false }));
+var db;
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
  
+MongoClient.connect(hostname, { useNewUrlParser: true } ,(err, client) => {
+
+      if (err) return console.log(err)
+      db = client.db('get-out') 
+      console.log('Connect is succesfull');
+      app.listen(port, function(){
+            console.log("Mon serveur fonctionne sur http://" +":"+port); 
+      });
+    })
+
 //Afin de faciliter le routage (les URL que nous souhaitons prendre en charge dans notre API), nous créons un objet Router.
 //C'est à partir de cet objet myRouter, que nous allons implémenter les méthodes. 
 var myRouter = express.Router(); 
@@ -17,20 +29,22 @@ myRouter.route('/dashboard')
 // GET
 .get(function(req,res){ 
  res.json({
- message : "Liste les piscines de Lille Métropole avec paramètres :",
+ message : "Liste de tout les evenements :",
  ville : req.query.ville,
  nbResultat : req.query.maxresultat, 
  methode : req.method });
  
 })
 //POST
-.post(function(req,res){
-    res.json({message : "Ajoute une nouvelle piscine à la liste", 
-    nom : req.body.nom, 
-    ville : req.body.ville, 
-    taille : req.body.taille,
-    methode : req.method});
-   })
+   app.post('/dashboard', (req, res) => {
+      db.collection('event').save(req.body, (err, result) => {
+        if (err) return console.log(err)
+    
+        console.log('saved to database')
+        res.redirect('/')
+      })
+    })
+
 //PUT
 .put(function(req,res){ 
       res.json({message : "Mise à jour des informations d'une piscine dans la liste", methode : req.method});
@@ -62,6 +76,3 @@ myRouter.route('/dashboard/:piscine_id')
 app.use(myRouter);
  
 // Démarrer le serveur 
-app.listen(port, hostname, function(){
-	console.log("Mon serveur fonctionne sur http://"+ hostname +":"+port); 
-});
