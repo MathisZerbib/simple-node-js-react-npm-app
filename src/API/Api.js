@@ -24,20 +24,10 @@ MongoClient.connect(hostname, { useNewUrlParser: true } ,(err, client) => {
 //C'est à partir de cet objet myRouter, que nous allons implémenter les méthodes. 
 var myRouter = express.Router(); 
  
-myRouter.route('/dashboard')
-// J'implémente les méthodes GET, PUT, UPDATE et DELETE
-// GET
-.get(function(req,res){ 
- res.json({
- message : "Liste de tout les evenements :",
- ville : req.query.ville,
- nbResultat : req.query.maxresultat, 
- methode : req.method });
- 
-})
-//POST
-   app.post('/bar', (req, res) => {
-      db.collection('event').save(req.body, (err, result) => {
+myRouter.route('/')
+
+app.post( '/quotes',(req, res) => {
+      db.collection('quotes').save(req.body, (err, result) => {
         if (err) return console.log(err)
     
         console.log('saved to database')
@@ -60,16 +50,28 @@ myRouter.route('/')
       res.json({message : "Bienvenue sur notre Frugal API ", methode : req.method});
 });
 
-myRouter.route('/dashboard/:piscine_id')
-.get(function(req,res){ 
-	  res.json({message : "Vous souhaitez accéder aux informations de la piscine n°" + req.params.piscine_id});
-})
-.put(function(req,res){ 
-	  res.json({message : "Vous souhaitez modifier les informations de la piscine n°" + req.params.piscine_id});
-})
-.delete(function(req,res){ 
-	  res.json({message : "Vous souhaitez supprimer la piscine n°" + req.params.piscine_id});
-});
+// J'implémente les méthodes GET, PUT, UPDATE et DELETE
+// GET
+// .get(function(req,res){ 
+//  res.json({
+//  message : "Liste de tout les evenements :",
+//  ville : req.query.ville,
+//  nbResultat : req.query.maxresultat, 
+//  methode : req.method });
+ 
+// })
+//POST
+
+// myRouter.route('/dashboard/:piscine_id')
+// .get(function(req,res){ 
+// 	  res.json({message : "Vous souhaitez accéder aux informations de la piscine n°" + req.params.piscine_id});
+// })
+// .put(function(req,res){ 
+// 	  res.json({message : "Vous souhaitez modifier les informations de la piscine n°" + req.params.piscine_id});
+// })
+// .delete(function(req,res){ 
+// 	  res.json({message : "Vous souhaitez supprimer la piscine n°" + req.params.piscine_id});
+// });
 
  
 // Nous demandons à l'application d'utiliser notre routeur
