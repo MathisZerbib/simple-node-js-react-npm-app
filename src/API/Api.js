@@ -11,9 +11,6 @@ var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
  
-
-
-
 //Afin de faciliter le routage (les URL que nous souhaitons prendre en charge dans notre API), nous créons un objet Router.
 //C'est à partir de cet objet myRouter, que nous allons implémenter les méthodes. 
 var myRouter = express.Router(); 
@@ -72,7 +69,7 @@ myRouter.route('/piscines')
 })//... Suite du code
  
 // Nous demandons à l'application d'utiliser notre routeur
-app.use(myRouter);  
+app.use(myRouter);  000
  
 // Démarrer le serveur 
 app.listen(port, hostname, function(){
